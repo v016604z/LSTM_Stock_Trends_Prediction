@@ -1,12 +1,13 @@
 {
   "data": {
+    "source": "twse",
     "ticker": "2330.TW",
     "start": "2015-01-01",
     "end": "2025-12-31",
     "end_exclusive": "2026-01-01",
     "interval": "1d",
-    "auto_adjust": true,
-    "snapshot_path": "../res/research/2330.TW_2015-2025.csv",
+    "auto_adjust": false,
+    "snapshot_path": "../res/research/2330.TW_2015-2025_twse.csv",
     "output_dir": "../results"
   },
   "split": {

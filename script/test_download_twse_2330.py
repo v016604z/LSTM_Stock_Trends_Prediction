@@ -51,7 +51,7 @@ class Tests(unittest.TestCase):
             paths=m.write_outputs(d,'2330','2019-01','2019-01',rows,[],[x['Date'] for x in rows],{'name':'XTAI','source':'test'})
             self.assertEqual(len(paths),3)
             self.assertIn(b'Date,Open,High,Low,Close,Volume',paths[0].read_bytes())
-            metadata=json.loads(paths[2].read_text())
+            metadata=json.loads(paths[2].read_text(encoding='utf-8'))
             self.assertEqual(metadata['source']['name'],'TWSE_STOCK_DAY')
             self.assertEqual(metadata['source']['price_basis'],'unadjusted')
             self.assertEqual(metadata['data']['row_count'],2)

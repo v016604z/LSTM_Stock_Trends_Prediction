@@ -60,17 +60,25 @@ def load_config(path):
     _object(config, "config", (
         "data", "split", "sequence", "features", "model", "training", "evaluation"
     ))
-    data = _object(config["data"], "data", (
+    data_fields = (
         "ticker", "start", "end", "end_exclusive", "interval", "auto_adjust",
         "snapshot_path", "output_dir"
-    ))
+    )
+    data = config["data"]
+    if not isinstance(data, dict):
+        raise ConfigError("data 必須是物件")
+    missing, unknown = set(data_fields) - data.keys(), data.keys() - set(data_fields) - {"source"}
+    if missing or unknown:
+        raise ConfigError(f"data 欄位錯誤：缺少 {sorted(missing)}，未知 {sorted(unknown)}")
+    source = data.get("source", "yfinance")
+    _choice(source, "data.source", ("yfinance", "twse"))
     if not isinstance(data["ticker"], str) or not data["ticker"].strip():
         raise ConfigError("data.ticker 必須是非空字串")
     start, end = (_day(data[key], f"data.{key}") for key in ("start", "end"))
     if start >= end or _day(data["end_exclusive"], "data.end_exclusive") - end != timedelta(days=1):
         raise ConfigError("data 日期順序錯誤，end_exclusive 必須是 end 的下一日")
     _choice(data["interval"], "data.interval", ("1d",))
-    _choice(data["auto_adjust"], "data.auto_adjust", (True,))
+    _choice(data["auto_adjust"], "data.auto_adjust", (source == "yfinance",))
     for key in ("snapshot_path", "output_dir"):
         if not isinstance(data[key], str) or not data[key].strip():
             raise ConfigError(f"data.{key} 必須是非空路徑字串")

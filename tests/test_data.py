@@ -14,6 +14,10 @@ from lstm_comparison.data import (
     COLUMNS, SnapshotError, _calendar_sessions, download_snapshot,
     load_snapshot, normalize_ohlcv,
 )
+from lstm_comparison.config import load_config
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class SnapshotTests(unittest.TestCase):
@@ -224,18 +228,61 @@ class SnapshotTests(unittest.TestCase):
 class CalendarTests(unittest.TestCase):
     def test_xtai_sessions_include_documented_typhoon_patch(self):
         sessions, metadata = _calendar_sessions("2015-01-01", "2025-12-31")
-        self.assertEqual(len(sessions), 2679)
+        self.assertEqual(len(sessions), 2682)
         self.assertEqual(sessions[0], pd.Timestamp("2015-01-05"))
         self.assertEqual(sessions[-1], pd.Timestamp("2025-12-31"))
         for day in ("2022-02-04", "2023-01-18", "2024-07-24", "2024-07-25", "2024-10-02", "2024-10-03", "2024-10-31"):
             self.assertNotIn(pd.Timestamp(day), sessions)
-        for day in ("2016-01-30", "2016-06-04", "2016-09-10", "2017-02-18", "2017-06-03"):
+        for day in ("2016-01-30", "2016-06-04", "2016-09-10", "2017-02-18", "2017-06-03",
+                    "2017-09-30", "2018-03-31", "2018-12-22"):
             self.assertIn(pd.Timestamp(day), sessions)
         self.assertIn(pd.Timestamp("2025-11-12"), sessions)
         self.assertEqual(metadata["version"], "4.13.3")
         self.assertEqual([item["date"] for item in metadata["additional_closures"]], ["2022-02-04", "2023-01-18", "2024-10-31"])
-        self.assertEqual(len(metadata["additional_sessions"]), 5)
+        self.assertEqual(len(metadata["additional_sessions"]), 8)
         self.assertIn("twse.com.tw", metadata["additional_closures"][0]["source"])
+
+
+class TwseSnapshotTests(unittest.TestCase):
+    def setUp(self):
+        self.config = load_config(ROOT / "configs" / "research_twse.json")
+        self.frame, self.metadata = load_snapshot(self.config)
+
+    def test_frozen_twse_bundle_loads_offline(self):
+        self.assertEqual(len(self.frame), 2682)
+        self.assertEqual(self.frame.index[0], pd.Timestamp("2015-01-05"))
+        self.assertEqual(self.frame.index[-1], pd.Timestamp("2025-12-31"))
+        self.assertEqual(self.metadata["source"]["name"], "TWSE_STOCK_DAY")
+        self.assertEqual(self.metadata["source"]["price_basis"], "unadjusted")
+        self.assertEqual(self.metadata["source"]["volume_unit"], "shares")
+
+    def test_twse_source_and_hash_errors_fail_without_touching_bundle(self):
+        with tempfile.TemporaryDirectory() as directory:
+            original_path = Path(self.config["data"]["snapshot_path"])
+            paths = (original_path, original_path.with_suffix(".metadata.json"), original_path.with_suffix(".sessions.csv"))
+            snapshot_path = Path(directory) / "prices.csv"
+            copied = (snapshot_path, snapshot_path.with_suffix(".metadata.json"), snapshot_path.with_suffix(".sessions.csv"))
+            for source, target in zip(paths, copied):
+                target.write_bytes(source.read_bytes())
+            config = copy.deepcopy(self.config)
+            config["data"]["snapshot_path"] = str(snapshot_path)
+
+            for change in (
+                lambda metadata: metadata["source"].update(price_basis="adjusted"),
+                lambda metadata: metadata["source"]["parameters"].update(stockNo="9999"),
+                lambda metadata: metadata["source"].update(agency="wrong"),
+            ):
+                metadata_path = copied[1]
+                metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                change(metadata)
+                metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
+                with self.subTest(change=change), self.assertRaises(SnapshotError):
+                    load_snapshot(config)
+                metadata_path.write_bytes(paths[1].read_bytes())
+
+            copied[0].write_bytes(copied[0].read_bytes() + b"\\n")
+            with self.assertRaisesRegex(SnapshotError, "SHA256"):
+                load_snapshot(config)
 
 
 if __name__ == "__main__":

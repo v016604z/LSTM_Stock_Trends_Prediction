@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 
 from .config import load_config
+from .data import SnapshotError, _check_twse_source
 from .metrics import calculate_metrics, error_improvement_pct, summarize_metrics
 
 
@@ -125,14 +126,26 @@ def _load_bundle(run_dir):
             or evaluation.get("data_sha256") != metadata["data"]["sha256"]
             or evaluation.get("calendar_sha256") != metadata["calendar"]["sha256"]):
         raise ReportError("設定、來源行情或交易日 hash 與保存紀錄不符")
-    parameters = metadata["source"]["parameters"]
-    for key, expected in {"tickers": config["data"]["ticker"], "start": config["data"]["start"],
-                          "end": config["data"]["end_exclusive"], "interval": config["data"]["interval"],
-                          "auto_adjust": config["data"]["auto_adjust"]}.items():
-        if parameters[key] != expected:
-            raise ReportError("來源下載參數與報告設定不符")
-    if metadata["source"]["name"] != "yfinance":
-        raise ReportError("來源紀錄必須為 yfinance")
+    source = metadata["source"]
+    source_mode = config["data"].get("source", "yfinance")
+    if source_mode == "yfinance":
+        parameters = source["parameters"]
+        for key, expected in {"tickers": config["data"]["ticker"], "start": config["data"]["start"],
+                              "end": config["data"]["end_exclusive"], "interval": config["data"]["interval"],
+                              "auto_adjust": config["data"]["auto_adjust"]}.items():
+            if parameters[key] != expected:
+                raise ReportError("來源下載參數與報告設定不符")
+        if source["name"] != "yfinance":
+            raise ReportError("來源紀錄必須為 yfinance")
+        price_basis = source.get("price_basis", "adjusted" if config["data"]["auto_adjust"] else "unadjusted")
+    elif source_mode == "twse":
+        try:
+            _check_twse_source(metadata, config)
+        except (SnapshotError, KeyError, TypeError, ValueError) as error:
+            raise ReportError(f"TWSE 來源紀錄無效：{error}") from error
+        price_basis = source["price_basis"]
+    else:
+        raise ReportError(f"不支援的資料來源：{source_mode}")
 
     expected_files = {"predictions_naive.csv", *(f"predictions_{name}_seed_{seed}.csv" for name, seed in expected_pairs)}
     if (not isinstance(evaluation.get("prediction_files"), list)
@@ -251,7 +264,8 @@ def _load_bundle(run_dir):
         histories[pair], training_details[pair] = history, detail
     currency = metadata.get("currency", metadata["source"].get("currency"))
     unit = "TWD" if config["data"]["ticker"] == "2330.TW" else currency if isinstance(currency, str) and currency else "source price unit"
-    return {"ticker": config["data"]["ticker"], "price_unit": unit, "seeds": seeds, "plot_seed": 42,
+    return {"ticker": config["data"]["ticker"], "price_unit": unit, "price_basis": price_basis,
+            "seeds": seeds, "plot_seed": 42,
             "predictions": all_predictions, "naive_predictions": naive_frame, "summary": summary,
             "histories": histories, "training_details": training_details, "per_seed": all_rows,
             "config": config, "metadata": metadata, "evaluation": evaluation,
@@ -336,8 +350,8 @@ def _markdown(bundle, figures):
 
 ## 二、資料與研究方法
 
-來源：{metadata['source']['name']}，下載時間：{metadata['downloaded_at_utc']}；auto_adjust=True，保留來源成交量，不補週末或休市日。
-使用過去 {config['sequence']['lookback']} 個交易日，預測下一交易日調整後 Close。技術指標採向後 MA、Wilder RSI14、SMA 初始化的 MACD 12/26/9；C 的 33 筆暖機與完整視窗決定共同日期。
+來源：{metadata['source']['name']}，下載時間：{metadata['downloaded_at_utc']}；價格口徑：{'未還原' if bundle['price_basis'] == 'unadjusted' else '調整後'}，保留來源成交量，不補週末或休市日。
+使用過去 {config['sequence']['lookback']} 個交易日，預測下一交易日{'未還原' if bundle['price_basis'] == 'unadjusted' else '調整後'} Close。未還原價格會保留除權息造成的價格跳空，結果代表名目收盤價預測，不等同含息報酬。技術指標採向後 MA、Wilder RSI14、SMA 初始化的 MACD 12/26/9；C 的 33 筆暖機與完整視窗決定共同日期。
 依目標日期切分：{split}。跨年度輸入保留已知歷史，X 僅以共同訓練輸入位置聯集擬合，y 僅以共同訓練目標擬合；測試只載回縮放器，不重新 fit、不裁切。
 Naive 使用前一交易日 Close；方向以同一前收盤判斷上漲、下跌、持平，不加 epsilon；Naive 方向正確率為 N/A。
 

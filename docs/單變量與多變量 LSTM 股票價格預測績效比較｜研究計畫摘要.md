@@ -6,14 +6,13 @@
 
 長短期記憶網路（Long Short-Term Memory, LSTM）常用於處理時間序列資料。本研究以股票歷史行情為例，探討輸入特徵的數量與類型是否影響 LSTM 對「下一交易日收盤價」的預測表現。研究重點不是證明 LSTM 一定能獲利，而是以公平的實驗比較，檢驗單變量、多變量與加入技術指標三種設定的預測差異。
 
-# 二、建議資料來源：yfinance
+# 二、資料來源與價格口徑
 
-建議使用 yfinance（Yahoo Finance 的第三方 Python 資料介接工具），以台積電（2330.TW）作為示例股票，取得 2015 年 1 月至 2025 年 12 月的歷史日線資料。可取得開盤價（Open）、最高價（High）、最低價（Low）、收盤價（Close）與成交量（Volume），並依需要計算移動平均線、RSI、MACD 等技術指標。實作時統一使用調整後價格口徑，記錄下載日期及資料處理方式。
+本研究使用臺灣證券交易所（TWSE）2330 個股日成交資訊，取得 2015 年 1 月至 2025 年 12 月的官方日線 OHLCV。專案保留每月查詢來源、原始回應 SHA256、交易日清單及行情快照 SHA256，供離線重現與核對。
 
-**選擇 yfinance 的理由：**① 可自由決定股票與研究期間；② 原始 OHLCV 欄位易於理解，能自行控制哪些特徵進入模型；③ 容易重現單變量與多變量的公平比較；④ 有利於直接用 Python 進行前處理、模型訓練與繪圖。
+本研究使用官方資料的原始未還原價格，不套用 Yahoo auto_adjust 或自行估計公司行動調整係數。成交量以股計。除權息等事件造成的價格跳空會保留，Close 與由 Close 計算的技術指標也維持未還原口徑。
 
-相較之下，UCI CNNpred 是已整理多種金融及技術特徵的資料集，適合進階的跨市場特徵研究，但歷史期間固定、特徵較多，且原始研究較偏重市場漲跌方向預測；若本次主題聚焦「次日收盤價的單／多變量比較」，會增加資料挑選與研究設計的負擔。因此本報告優先選用 yfinance，UCI CNNpred 可作為延伸研究。
-
+因此預測目標是未還原的下一交易日 Close，MAE/RMSE 衡量名目價格誤差，不能解讀為含息總報酬或投資績效。這是本次研究採用的資料口徑與解釋限制；模型、資料切分及實驗設計仍沿用既定方案。
 # 三、研究目標與研究問題
 
 **研究目標：**控制 LSTM 架構、訓練流程與預測目標一致，觀察增加行情變數及技術指標後，是否能穩定降低預測誤差。
@@ -54,9 +53,7 @@ MAE（平均絕對誤差）：衡量預測價格與實際價格的平均絕對�
 
 # 七、資料與工具參考
 
-[yfinance 官方文件](https://ranaroussi.github.io/yfinance/)：https\://ranaroussi.github.io/yfinance/
 
-[yfinance GitHub](https://github.com/ranaroussi/yfinance)：https\://github.com/ranaroussi/yfinance
 
 [UCI CNNpred 資料集](https://archive.ics.uci.edu/dataset/554/cnnpred)：https\://archive.ics.uci.edu/dataset/554/cnnpred
 

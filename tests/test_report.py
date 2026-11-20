@@ -8,6 +8,7 @@ import unittest
 from unittest.mock import patch
 
 import numpy as np
+import pandas as pd
 
 from lstm_comparison.metrics import calculate_metrics, error_improvement_pct, summarize_metrics
 from lstm_comparison.report import METRIC_COLUMNS, ReportError, _load_bundle, generate_report
@@ -91,6 +92,40 @@ class ReportTests(unittest.TestCase):
         manifest.update(metrics_per_seed=metrics, metrics_summary=summary)
         self.write_json("evaluation/evaluation.json", manifest)
 
+    def use_twse_source(self):
+        config = self.json("config.json")
+        config["data"].update(source="twse", auto_adjust=False)
+        (self.run_dir / "config.json").write_text(json.dumps(config), encoding="utf-8")
+        manifest = self.json("evaluation/evaluation.json")
+        digest = sha256((self.run_dir / "config.json").read_bytes()).hexdigest()
+        manifest["config_sha256"] = digest
+        manifest["artifact_sha256"]["config.json"] = digest
+        self.write_json("evaluation/evaluation.json", manifest)
+        metadata = self.json("snapshot.metadata.json")
+        start = config["data"]["start"]
+        end = config["data"]["end"]
+        months = pd.period_range(start, end, freq="M")
+        metadata["source"] = {
+            "name": "TWSE_STOCK_DAY", "agency": "臺灣證券交易所",
+            "base_url": "https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY",
+            "price_basis": "unadjusted", "volume_unit": "shares",
+            "parameters": {"tickers": config["data"]["ticker"], "start": start,
+                            "end": config["data"]["end_exclusive"], "interval": "1d",
+                            "auto_adjust": False, "stockNo": config["data"]["ticker"][:-3]},
+            "requests": [{
+                "month": period.strftime("%Y%m"), "cache_sha256": "a" * 64, "source": "cache",
+                "url": "https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY"
+                       f"?date={period.strftime('%Y%m')}01&stockNo=2330&response=json",
+            } for period in months],
+        }
+        metadata["validation"] = {
+            "all_expected_sessions_present": True,
+            "no_unexpected_sessions": True,
+            "unique_sorted_dates": True,
+            "all_ohlcv_valid": True,
+        }
+        self.write_json("snapshot.metadata.json", metadata)
+
     def test_saved_only_report_preserves_sources_and_records_hashes(self):
         # The original data, weights and pickle locations no longer exist.
         for suffix in (".csv", ".metadata.json", ".sessions.csv"):
@@ -121,6 +156,7 @@ class ReportTests(unittest.TestCase):
         text = (output / "report.md").read_text(encoding="utf-8")
         for phrase in ("本次為短測試", "最大 epochs：1", "seed 42", "Naive", "N/A", "ddof=1", "不自動宣告 Commit 8", "不等同投資報酬"):
             self.assertIn(phrase, text)
+        self.assertIn("價格口徑：調整後", text)
         self.assertEqual(text.count("\n## "), 8)
         for relative, digest in manifest["output_sha256"].items():
             self.assertEqual(sha256((output / relative).read_bytes()).hexdigest(), digest)
@@ -128,6 +164,21 @@ class ReportTests(unittest.TestCase):
             self.assertEqual(sha256((self.run_dir / relative).read_bytes()).hexdigest(), digest)
         for path, digest in original.items():
             self.assertEqual(sha256(path.read_bytes()).hexdigest(), digest)
+
+    def test_twse_report_labels_unadjusted_price_basis(self):
+        self.use_twse_source()
+        text = (self.generate() / "report.md").read_text(encoding="utf-8")
+        self.assertIn("價格口徑：未還原", text)
+        self.assertIn("預測下一交易日未還原 Close", text)
+        self.assertIn("不等同含息報酬", text)
+
+    def test_twse_report_rejects_false_provenance(self):
+        self.use_twse_source()
+        metadata = self.json("snapshot.metadata.json")
+        metadata["source"]["agency"] = "not TWSE"
+        self.write_json("snapshot.metadata.json", metadata)
+        with self.assertRaisesRegex(ReportError, "TWSE"):
+            self.generate()
 
     def test_result_text_handles_improvement_regression_and_negative_baseline_improvement(self):
         self.replace_errors({(group, seed): {"A": 4., "B": 1., "C": 2.}[group] for group in ("A", "B", "C") for seed in (42, 43, 44)})

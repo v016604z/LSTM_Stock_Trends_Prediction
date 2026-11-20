@@ -31,6 +31,8 @@ class EvaluationTests(unittest.TestCase):
         self.addCleanup(directory.cleanup)
         self.root = Path(directory.name)
         settings = json.loads((ROOT / "configs" / "research.json").read_text(encoding="utf-8"))
+        settings["data"].pop("source", None)
+        settings["data"]["auto_adjust"] = True
         settings["data"].update({"start": "2022-08-01", "end": "2023-02-28", "end_exclusive": "2023-03-01",
                                  "snapshot_path": "prices.csv", "output_dir": "runs"})
         settings["split"] = {"train": {"start": "2022-08-01", "end": "2022-12-31"},

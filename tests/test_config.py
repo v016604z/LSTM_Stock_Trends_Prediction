@@ -24,6 +24,8 @@ class ConfigTests(unittest.TestCase):
 
     def test_default_research_contract(self):
         config = load_config(DEFAULT_CONFIG)
+        self.assertEqual(config["data"]["source"], "twse")
+        self.assertIs(config["data"]["auto_adjust"], False)
         self.assertEqual(config["training"]["seeds"], [42, 43, 44])
         self.assertEqual(config["sequence"], {"lookback": 60, "horizon": 1})
         self.assertEqual([len(group) for group in config["features"]["groups"].values()], [1, 5, 10])
@@ -31,6 +33,21 @@ class ConfigTests(unittest.TestCase):
         self.assertEqual(config["split"]["test"]["start"], "2024-01-01")
         self.assertEqual(config["data"]["end_exclusive"], "2026-01-01")
         self.assertEqual(config["training"]["max_epochs"], 100)
+
+    def test_source_selection_and_legacy_default(self):
+        self.assertEqual(load_config(DEFAULT_CONFIG)["data"]["source"], "twse")
+        settings = copy.deepcopy(self.settings)
+        settings["data"].pop("source")
+        settings["data"]["auto_adjust"] = True
+        self.assertEqual(load_config(self.save(settings))["data"].get("source", "yfinance"), "yfinance")
+        settings["data"].update(source="yfinance", auto_adjust=True)
+        load_config(self.save(settings))
+        settings["data"].update(source="twse", auto_adjust=False)
+        load_config(self.save(settings))
+        for source, auto_adjust in (("unknown", False), ("yfinance", False), ("twse", True)):
+            settings["data"].update(source=source, auto_adjust=auto_adjust)
+            with self.subTest(source=source, auto_adjust=auto_adjust), self.assertRaises(ConfigError):
+                load_config(self.save(settings))
 
     def test_paths_use_config_directory_independent_of_cwd(self):
         self.settings["data"]["snapshot_path"] = "data/prices.csv"

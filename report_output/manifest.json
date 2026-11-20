@@ -1,0 +1,60 @@
+{
+  "docx": "report_output\\LSTM_GRU_研究報告.docx",
+  "zip_integrity": "ok",
+  "xml_parse": "ok",
+  "explicit_page_breaks": 7,
+  "explicit_pages_expected": 8,
+  "chapters": {
+    "一、資料蒐集與前處理": true,
+    "二、AI 模型建構": true,
+    "三、Python 程式實作": true,
+    "四、實際實驗與比較": true,
+    "五、研究分析與改進": true
+  },
+  "tables": 4,
+  "figures": 2,
+  "hyperlinks": 10,
+  "word_text_characters": 5612,
+  "word_parts": [
+    "word/_rels/document.xml.rels",
+    "word/document.xml",
+    "word/fontTable.xml",
+    "word/footer1.xml",
+    "word/media/image1.png",
+    "word/media/image2.png",
+    "word/numbering.xml",
+    "word/settings.xml",
+    "word/styles.xml",
+    "word/stylesWithEffects.xml",
+    "word/theme/theme1.xml",
+    "word/webSettings.xml"
+  ],
+  "word_rendered_pages": 8,
+  "pdf_pages": 8,
+  "pdf": "LSTM_GRU_report_preview.pdf",
+  "pdf_renderer": "Microsoft Word 16.0 ExportAsFixedFormat",
+  "pdf_page_text_characters": [
+    693,
+    772,
+    835,
+    801,
+    746,
+    371,
+    799,
+    1619
+  ],
+  "pdf_no_empty_pages": true,
+  "visual_review": "Rendered all eight PDF pages to preview_pages; inspected contact sheet and full-resolution pages 1, 3, 4, 5, 6, 7, 8; no clipping, overflow, empty ninth page, or CJK glyph corruption observed.",
+  "source_archive": {
+    "file": "LSTM_GRU_reproducible_source.zip",
+    "bytes": 189772,
+    "zip_integrity": "ok",
+    "entries": 38,
+    "root_driver": true,
+    "readme": true,
+    "sha256": "5245ed1e0b6f4457f023793659291da82effb10b66cf84ef8fb453bbfef030ee"
+  },
+  "docx_bytes": 257658,
+  "pdf_bytes": 606617,
+  "final_validation": "PASS: DOCX ZIP/XML valid; required chapters present; Word 16.0 rendered and exported exactly 8 non-empty PDF pages; contact sheet inspected."
+}

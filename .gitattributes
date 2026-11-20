@@ -1,3 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 res/research/*.csv text eol=lf
+results/20261120T134010119780Z_82eaad21/**/*.json text eol=crlf
+results/20261120T134010119780Z_82eaad21/**/*.md text eol=crlf
+results/20261120T134010119780Z_82eaad21/**/*.csv text eol=lf
+results/20261120T134010119780Z_82eaad21/**/*.png -text

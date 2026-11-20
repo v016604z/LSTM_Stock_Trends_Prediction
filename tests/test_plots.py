@@ -47,7 +47,7 @@ def synthetic_bundle(seeds=(42, 43, 44), days=24):
                 "val_loss": (1 + number / 10) / (epoch + (seed - 42) / 3) + 0.02 * epoch,
             })
     baseline = calculate_metrics(actual, previous, previous, naive=True)
-    return {"ticker": "SYNTHETIC PREVIEW | DEMO", "price_unit": "JPY", "seeds": list(seeds),
+    return {"ticker": "SYNTHETIC PREVIEW | DEMO", "price_unit": "JPY", "price_basis": "adjusted", "seeds": list(seeds),
             "plot_seed": 42, "predictions": predictions, "naive_predictions": base,
             "summary": summarize_metrics(rows, baseline), "histories": histories}
 
@@ -59,7 +59,7 @@ class PlotsTests(unittest.TestCase):
         self.root = Path(self.directory.name)
         self.bundle = synthetic_bundle()
 
-    def capture(self, bundle=None):
+    def capture(self, bundle=None, output_dir="figures"):
         snapshots = {}
         original = Figure.savefig
 
@@ -85,7 +85,7 @@ class PlotsTests(unittest.TestCase):
             original(figure, target, *args, **kwargs)
 
         with patch.object(Figure, "savefig", autospec=True, side_effect=save):
-            paths = render_figures(self.bundle if bundle is None else bundle, self.root / "figures")
+            paths = render_figures(self.bundle if bundle is None else bundle, self.root / output_dir)
         return paths, snapshots
 
     def test_artist_values_labels_fixed_seed_and_all_seed_losses(self):
@@ -93,6 +93,8 @@ class PlotsTests(unittest.TestCase):
         price = figures["prices"]["axes"][0]
         self.assertEqual(price["legend"], ["Actual", "A (seed 42)", "B (seed 42)", "C (seed 42)", "Naive (previous close)"])
         self.assertIn("JPY", price["ylabel"])
+        self.assertIn("Adjusted close", price["ylabel"])
+        self.assertIn("Adjusted close", " ".join(figures["prices"]["texts"]))
         self.assertIn("2024-01-02", price["title"])
         self.assertIn("Fixed LSTM seed 42", price["title"])
         for key in figures:
@@ -111,6 +113,7 @@ class PlotsTests(unittest.TestCase):
             self.assertEqual(len(axis["bars"]), 4)
             self.assertEqual(len(axis["errorbars"]), 3)
             self.assertIn("JPY", axis["ylabel"])
+            self.assertIn("adjusted close", axis["ylabel"])
             for index, group in enumerate(("A", "B", "C", "Naive")):
                 self.assertAlmostEqual(axis["bars"][index][1], summary[group][f"{metric}_mean"])
                 if group != "Naive":
@@ -175,6 +178,16 @@ class PlotsTests(unittest.TestCase):
                 self.assertNotIn(line["marker"], (None, "None", "none", ""))
                 self.assertGreater(line["marker_size"], 0)
         self.assertEqual(len(price["ticks"]), 1)
+
+    def test_unadjusted_basis_labels_price_and_error_figures(self):
+        bundle = synthetic_bundle()
+        bundle["price_basis"] = "unadjusted"
+        _, figures = self.capture(bundle, "unadjusted")
+        price = figures["prices"]
+        self.assertIn("Unadjusted close", " ".join(price["texts"]))
+        self.assertIn("Unadjusted close", price["axes"][0]["ylabel"])
+        for axis in figures["errors"]["axes"]:
+            self.assertIn("unadjusted close", axis["ylabel"])
 
     def test_pngs_decode_and_render_preserves_inputs_rc_and_unrelated_figures(self):
         original = copy.deepcopy(self.bundle)

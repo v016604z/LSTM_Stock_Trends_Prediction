@@ -44,6 +44,7 @@ def _prices(bundle, path, period):
     from matplotlib.dates import AutoDateLocator, ConciseDateFormatter, DateFormatter
 
     seed = bundle["plot_seed"]
+    price_label = "Unadjusted" if bundle["price_basis"] == "unadjusted" else "Adjusted"
     reference = bundle["naive_predictions"]
     single_target = len(reference) == 1
     with _figure((12, 5.5)) as figure:
@@ -59,9 +60,9 @@ def _prices(bundle, path, period):
         naive_marker = {"marker": "D", "markersize": 11, "markerfacecolor": "none"} if single_target else {}
         axes.plot(reference["target_date"], reference["predicted_close"], color=COLORS["Naive"],
                   linewidth=1.3, linestyle="--", label="Naive (previous close)", **naive_marker)
-        figure.suptitle(f"{bundle['ticker']} | Adjusted close forecasts", fontsize=14)
+        figure.suptitle(f"{bundle['ticker']} | {price_label} close forecasts", fontsize=14)
         axes.set_title(f"Test: {period} | Fixed LSTM seed {seed}", fontsize=10, loc="left", pad=12)
-        axes.set_ylabel(f"Adjusted close ({bundle['price_unit']})")
+        axes.set_ylabel(f"{price_label} close ({bundle['price_unit']})")
         axes.set_xlabel("Target trading date")
         locator = AutoDateLocator(minticks=4, maxticks=9)
         axes.xaxis.set_major_locator(locator)
@@ -86,6 +87,7 @@ def _error_bars(axes, x, mean, std, color):
 def _errors(bundle, path, period, seed_label):
     rows = {row["group"]: row for row in bundle["summary"]}
     groups = (*GROUPS, "Naive")
+    price_label = "Unadjusted" if bundle["price_basis"] == "unadjusted" else "Adjusted"
     with _figure((10.5, 4.8)) as figure:
         axes = figure.subplots(1, 2)
         figure.suptitle(f"{bundle['ticker']} | Test price errors", fontsize=14)
@@ -94,7 +96,7 @@ def _errors(bundle, path, period, seed_label):
                 row = rows[group]
                 _error_bars(axis, position, row[f"{metric}_mean"], row[f"{metric}_std"], COLORS[group])
             axis.set_xticks(range(len(groups)), groups)
-            axis.set_ylabel(f"{metric.upper()} ({bundle['price_unit']}, adjusted close)")
+            axis.set_ylabel(f"{metric.upper()} ({bundle['price_unit']}, {price_label.lower()} close)")
             axis.set_title(metric.upper(), fontsize=11)
             _axes_style(axis)
         figure.supxlabel(f"Test: {period}\n{seed_label} | Mean +/- sample SD; no SD for Naive or a single seed", fontsize=9)

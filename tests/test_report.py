@@ -157,6 +157,7 @@ class ReportTests(unittest.TestCase):
         for phrase in ("本次為短測試", "最大 epochs：1", "seed 42", "Naive", "N/A", "ddof=1", "不自動宣告 Commit 8", "不等同投資報酬"):
             self.assertIn(phrase, text)
         self.assertIn("價格口徑：調整後", text)
+        self.assertIn("MAE／RMSE 單位：調整後價格（TWD）", text)
         self.assertEqual(text.count("\n## "), 8)
         for relative, digest in manifest["output_sha256"].items():
             self.assertEqual(sha256((output / relative).read_bytes()).hexdigest(), digest)
@@ -170,6 +171,7 @@ class ReportTests(unittest.TestCase):
         text = (self.generate() / "report.md").read_text(encoding="utf-8")
         self.assertIn("價格口徑：未還原", text)
         self.assertIn("預測下一交易日未還原 Close", text)
+        self.assertIn("MAE／RMSE 單位：未還原價格（TWD）", text)
         self.assertIn("不等同含息報酬", text)
 
     def test_twse_report_rejects_false_provenance(self):

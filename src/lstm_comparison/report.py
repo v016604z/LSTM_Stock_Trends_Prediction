@@ -366,7 +366,7 @@ Naive 使用前一交易日 Close；方向以同一前收盤判斷上漲、下�
 
 ## 四、逐種子與彙總績效
 
-MAE 為主要比較指標；MAE／RMSE 單位：調整後價格（{bundle['price_unit']}）。方向正確率在 CSV 保存 0–1，本報告以百分比顯示。
+MAE 為主要比較指標；MAE／RMSE 單位：{'未還原' if bundle['price_basis'] == 'unadjusted' else '調整後'}價格（{bundle['price_unit']}）。方向正確率在 CSV 保存 0–1，本報告以百分比顯示。
 彙總為算術平均與樣本標準差（ddof=1）；單種子 std 為 N/A。改善率為 100×(Naive誤差−模型誤差)/Naive誤差；負值表示變差，Naive 誤差為零時為 N/A。Naive 只有單份預測，種子數為 0。
 
 {per_seed}

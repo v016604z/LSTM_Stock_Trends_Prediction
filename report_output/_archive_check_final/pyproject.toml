@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools==84.2.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lstm-comparison"
+version = "0.1.0"
+description = "Reproducible univariate and multivariate LSTM stock-price research"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "tensorflow-cpu==2.21.0",
+    "numpy==2.4.6",
+    "pandas==3.1.1",
+    "scikit-learn==1.9.1",
+    "matplotlib==3.11.2",
+    "yfinance==1.8.0",
+    "exchange-calendars==4.13.3",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["lstm_comparison*"]
+
+[tool.uv]
+required-environments = ["sys_platform == 'win32' and platform_machine == 'AMD64'"]

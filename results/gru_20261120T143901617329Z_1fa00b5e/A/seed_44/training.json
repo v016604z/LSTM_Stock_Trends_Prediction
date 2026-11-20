@@ -1,0 +1,21 @@
+{
+  "stage": "training",
+  "status": "completed",
+  "seed": 44,
+  "model_type": "GRU",
+  "columns": [
+    "Close"
+  ],
+  "started_at_utc": "2026-11-20T14:40:00.797506+00:00",
+  "parameter_count": 12929,
+  "epochs_trained": 37,
+  "stopped_early": true,
+  "best_epoch": 27,
+  "best_val_loss": 0.0001757964928401634,
+  "train_samples": 1865,
+  "validation_samples": 239,
+  "weights": "best.weights.h5",
+  "history": "history.csv",
+  "completed_at_utc": "2026-11-20T14:40:30.097336+00:00",
+  "elapsed_seconds": 29.300688100003754
+}

@@ -71,7 +71,7 @@ def _validation_predictions(model, split, batch_size):
     return predictions
 
 
-def train_one(group, config, seed, output_dir):
+def train_one(group, config, seed, output_dir, *, model_builder=None, model_type="LSTM"):
     """Fit one independent model on train/validation and save restored weights.
 
     No test inputs or labels are used. The output directory must be new;
@@ -79,7 +79,10 @@ def train_one(group, config, seed, output_dir):
     """
     output_dir = Path(output_dir)
     started = time.perf_counter()
+    if model_builder is None:
+        model_builder = build_model
     summary = {"stage": "training", "status": "running", "seed": seed,
+               "model_type": model_type,
                "columns": list(group.columns), "started_at_utc": _now()}
     try:
         output_dir.mkdir(parents=True, exist_ok=False)
@@ -91,7 +94,7 @@ def train_one(group, config, seed, output_dir):
         for split in (train, validation):
             if not len(split.X) or not np.isfinite(split.X).all() or not np.isfinite(split.y).all():
                 raise TrainingError("訓練與驗證資料必須非空且為有限數值")
-        model = build_model(train.X.shape[1:], config, seed)
+        model = model_builder(train.X.shape[1:], config, seed)
         summary["parameter_count"] = int(model.count_params())
         settings = config["training"]
         history = model.fit(

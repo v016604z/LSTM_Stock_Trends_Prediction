@@ -272,3 +272,13 @@ TWSE 快照三檔及 132 個月來源快取已在專案中。離線載入驗收�
 正式 run 的設定、訓練／評估／報告 manifest、metadata、環境、逐日預測、績效表與圖表均已納入版本控制；模型權重及縮放器 pickle 仍由 `.gitignore` 排除。可從已追蹤的逐日 CSV 重算指標，或在 TEMP 副本不帶權重／pickle 重生報告，命令見研究報告。既有 run 已有 `evaluation/` 與 `report/`，CLI 會拒絕覆寫；若本機忽略的權重仍存在，需在另一份訓練目錄副本且尚無 `evaluation/` 時重新評估。全新 clone 沒有模型權重，須依鎖定環境與凍結設定重跑九次訓練，才能重新評估模型。
 
 為保留此 Windows 正式 run 所記錄的原始位元組 SHA256，`.gitattributes` 僅對此 run 指定 JSON／Markdown 使用 CRLF、CSV 使用 LF、PNG 保持 binary bytes；其他 results 與 `res/research` 不受此規則影響。
+
+### LSTM 與 GRU 模型比較
+
+以相同 A/B/C 特徵、seeds、快照、切分與已保存縮放器訓練 GRU，使用完成的正式 LSTM run：
+
+```powershell
+.\.venv\Scripts\python.exe -m lstm_comparison.gru_experiment --baseline-run-dir results\20261120T134010119780Z_82eaad21
+```
+
+指令會在 `results/gru_<timestamp>_<id>/` 建立新的唯一目錄，讀取但不修改原 LSTM run，並保存 GRU 權重、訓練歷程、預測、逐種子與彙總比較 CSV、`comparison.md`。報告列出模型實際參數量與訓練時間；相同循環單元數不代表參數量相同。

@@ -1,0 +1,30 @@
+{
+  "stage": "training",
+  "status": "completed",
+  "seed": 43,
+  "model_type": "GRU",
+  "columns": [
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Volume",
+    "MA5",
+    "MA20",
+    "RSI14",
+    "MACD",
+    "MACD_signal"
+  ],
+  "started_at_utc": "2026-11-20T14:41:26.769158+00:00",
+  "parameter_count": 14657,
+  "epochs_trained": 15,
+  "stopped_early": true,
+  "best_epoch": 5,
+  "best_val_loss": 0.0003691035381052643,
+  "train_samples": 1865,
+  "validation_samples": 239,
+  "weights": "best.weights.h5",
+  "history": "history.csv",
+  "completed_at_utc": "2026-11-20T14:41:40.539114+00:00",
+  "elapsed_seconds": 13.770655200001784
+}

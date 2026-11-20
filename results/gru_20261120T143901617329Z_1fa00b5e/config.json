@@ -1,0 +1,104 @@
+{
+  "data": {
+    "source": "twse",
+    "ticker": "2330.TW",
+    "start": "2015-01-01",
+    "end": "2025-12-31",
+    "end_exclusive": "2026-01-01",
+    "interval": "1d",
+    "auto_adjust": false,
+    "snapshot_path": "C:\\Users\\PGW\\Github\\LSTM_Stock_Trends_Prediction\\res\\research\\2330.TW_2015-2025_twse.csv",
+    "output_dir": "C:\\Users\\PGW\\Github\\LSTM_Stock_Trends_Prediction\\results"
+  },
+  "split": {
+    "train": {
+      "start": "2015-01-01",
+      "end": "2022-12-31"
+    },
+    "validation": {
+      "start": "2023-01-01",
+      "end": "2023-12-31"
+    },
+    "test": {
+      "start": "2024-01-01",
+      "end": "2025-12-31"
+    }
+  },
+  "sequence": {
+    "lookback": 60,
+    "horizon": 1
+  },
+  "features": {
+    "groups": {
+      "A": [
+        "Close"
+      ],
+      "B": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume"
+      ],
+      "C": [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+        "MA5",
+        "MA20",
+        "RSI14",
+        "MACD",
+        "MACD_signal"
+      ]
+    },
+    "indicators": {
+      "ma_periods": [
+        5,
+        20
+      ],
+      "rsi_period": 14,
+      "rsi_smoothing": "wilder",
+      "macd_fast": 12,
+      "macd_slow": 26,
+      "macd_signal": 9
+    }
+  },
+  "model": {
+    "lstm_units": 64,
+    "dense_units": 1,
+    "bidirectional": false
+  },
+  "training": {
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "optimizer": "adam",
+    "learning_rate": 0.001,
+    "loss": "mse",
+    "batch_size": 32,
+    "max_epochs": 100,
+    "early_stopping": {
+      "monitor": "val_loss",
+      "patience": 10,
+      "restore_best_weights": true
+    },
+    "shuffle": false,
+    "device": "cpu"
+  },
+  "evaluation": {
+    "metrics": [
+      "mae",
+      "rmse",
+      "directional_accuracy"
+    ],
+    "primary_metric": "mae",
+    "direction": "three_way",
+    "baseline": "previous_close",
+    "naive_direction_accuracy": "N/A",
+    "plot_seed": 42
+  }
+}

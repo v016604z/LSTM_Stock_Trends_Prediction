@@ -1,17 +1,11 @@
-"""Build the shared CPU LSTM; TensorFlow is loaded only when building a model."""
+"""Build deterministic CPU recurrent models; TensorFlow is loaded on demand."""
 
 import math
 import os
 
 
-def build_model(input_shape, config, seed):
-    """Return a compiled LSTM → Dense model for (lookback, feature_count).
-
-    ``config`` is the complete dictionary returned by ``load_config``. Each
-    call clears Keras state and resets Python, NumPy and TensorFlow randomness
-    before creating weights. Reproducibility assumes the same CPU environment
-    and dependency versions.
-    """
+def _build_model(input_shape, config, seed, layer_name, name):
+    """Return a compiled recurrent → Dense model for sequence inputs."""
     if (not isinstance(input_shape, (tuple, list)) or len(input_shape) != 2
             or any(type(size) is not int or size <= 0 for size in input_shape)):
         raise ValueError("input_shape must be (lookback, n_features), two positive integers")
@@ -58,11 +52,27 @@ def build_model(input_shape, config, seed):
     with tf.device("/CPU:0"):
         model = tf.keras.Sequential([
             tf.keras.Input(shape=tuple(input_shape)),
-            tf.keras.layers.LSTM(units),
+            getattr(tf.keras.layers, layer_name)(units),
             tf.keras.layers.Dense(dense_units),
-        ], name="stock_lstm")
+        ], name=name)
         model.compile(
             optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
             loss=loss,
         )
     return model
+
+
+def build_model(input_shape, config, seed):
+    """Return a compiled LSTM → Dense model for (lookback, feature_count).
+
+    ``config`` is the complete dictionary returned by ``load_config``. Each
+    call clears Keras state and resets Python, NumPy and TensorFlow randomness
+    before creating weights. Reproducibility assumes the same CPU environment
+    and dependency versions.
+    """
+    return _build_model(input_shape, config, seed, "LSTM", "stock_lstm")
+
+
+def build_gru_model(input_shape, config, seed):
+    """Return a compiled GRU → Dense model using the shared research settings."""
+    return _build_model(input_shape, config, seed, "GRU", "stock_gru")

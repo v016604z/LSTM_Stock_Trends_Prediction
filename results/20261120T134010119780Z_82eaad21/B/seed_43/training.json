@@ -1,0 +1,24 @@
+{
+  "stage": "training",
+  "status": "completed",
+  "seed": 43,
+  "columns": [
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Volume"
+  ],
+  "started_at_utc": "2026-11-20T13:42:33.416012+00:00",
+  "parameter_count": 17985,
+  "epochs_trained": 30,
+  "stopped_early": true,
+  "best_epoch": 20,
+  "best_val_loss": 0.0005005998536944389,
+  "train_samples": 1865,
+  "validation_samples": 239,
+  "weights": "best.weights.h5",
+  "history": "history.csv",
+  "completed_at_utc": "2026-11-20T13:42:55.506144+00:00",
+  "elapsed_seconds": 22.090634700005467
+}

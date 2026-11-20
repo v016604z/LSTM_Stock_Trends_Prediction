@@ -1,0 +1,29 @@
+{
+  "stage": "training",
+  "status": "completed",
+  "seed": 42,
+  "columns": [
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Volume",
+    "MA5",
+    "MA20",
+    "RSI14",
+    "MACD",
+    "MACD_signal"
+  ],
+  "started_at_utc": "2026-11-20T13:43:17.240032+00:00",
+  "parameter_count": 19265,
+  "epochs_trained": 28,
+  "stopped_early": true,
+  "best_epoch": 18,
+  "best_val_loss": 0.0016500747296959162,
+  "train_samples": 1865,
+  "validation_samples": 239,
+  "weights": "best.weights.h5",
+  "history": "history.csv",
+  "completed_at_utc": "2026-11-20T13:43:37.615056+00:00",
+  "elapsed_seconds": 20.37578749999375
+}

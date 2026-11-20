@@ -1,0 +1,17 @@
+{
+  "python": "3.11.18",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "device": "cpu",
+  "deterministic_ops": true,
+  "packages": {
+    "tensorflow-cpu": "2.21.0",
+    "keras": "3.15.1",
+    "numpy": "2.4.6",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "yfinance": "1.8.0",
+    "exchange-calendars": "4.13.3",
+    "lstm-comparison": "0.1.0"
+  }
+}

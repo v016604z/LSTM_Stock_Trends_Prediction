@@ -115,8 +115,11 @@ def load_config(path):
         raise ConfigError("features.indicators.ma_periods 必須是 [5, 20]")
     for key in ("rsi_period", "macd_fast", "macd_slow", "macd_signal"):
         _number(indicators[key], f"features.indicators.{key}", integer=True)
-    if indicators["rsi_period"] != 14 or indicators["macd_fast"] >= indicators["macd_slow"]:
-        raise ConfigError("RSI14 需 rsi_period=14，MACD fast 必須小於 slow")
+    if indicators["rsi_period"] != 14:
+        raise ConfigError("features.indicators.rsi_period 必須是 14")
+    for key, expected in (("macd_fast", 12), ("macd_slow", 26), ("macd_signal", 9)):
+        if indicators[key] != expected:
+            raise ConfigError(f"features.indicators.{key} 必須是 {expected}")
     _choice(indicators["rsi_smoothing"], "features.indicators.rsi_smoothing", ("wilder",))
 
     model = _object(config["model"], "model", ("lstm_units", "dense_units", "bidirectional"))

@@ -1,0 +1,60 @@
+{
+  "structure": {
+    "spec_pages": 10,
+    "aspect_ratio": "16:9",
+    "editable_shapes_by_page": [
+      15,
+      79,
+      26,
+      24,
+      44,
+      29,
+      105,
+      8,
+      22,
+      29
+    ],
+    "native_notes_verified": 10,
+    "native_text_fonts_readback": "Microsoft JhengHei"
+  },
+  "render": {
+    "pdf_pages": 10,
+    "page_dimensions": [
+      960.0,
+      540.0
+    ],
+    "text_chars_per_page": [
+      175,
+      432,
+      380,
+      302,
+      752,
+      260,
+      484,
+      110,
+      278,
+      326
+    ],
+    "pdf_fonts": [
+      [
+        "MicrosoftJhengHeiRegular",
+        142
+      ],
+      [
+        "MicrosoftJhengHeiBold",
+        87
+      ]
+    ],
+    "preview_png_count": 10,
+    "contact_sheet": "preview/contact_sheet.png",
+    "native_powerpoint_COM": true,
+    "cjk_visual_check": "PDF page 1 raster inspected; Chinese displays correctly",
+    "text_shape_bounds": "all within 960x540; visual review all 10 pages",
+    "text_range_boundheight_overflows": 0
+  },
+  "source_hashes": {
+    "baseline_files": 457,
+    "changed_or_missing": [],
+    "git_source_diff": "none"
+  }
+}

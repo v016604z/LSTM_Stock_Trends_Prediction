@@ -1,0 +1,108 @@
+{
+  "structure": {
+    "slides": 10,
+    "aspect_ratio": "16:9",
+    "native_editable_shapes": true,
+    "speaker_notes_count": 10,
+    "speaker_notes_match_spec": true,
+    "speaker_note_characters": [
+      350,
+      475,
+      463,
+      446,
+      509,
+      467,
+      505,
+      402,
+      411,
+      399
+    ],
+    "font_readback": "Microsoft JhengHei",
+    "native_hyperlink": "https://github.com/v016604z/LSTM_Stock_Trends_Prediction"
+  },
+  "layout": {
+    "boundheight_overflows": 0,
+    "boundwidth_overflows": 0,
+    "nonempty_text_box_geometric_overlaps": 0,
+    "text_elements_in_slide_bounds": true,
+    "reviewed_pages": [
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10
+    ]
+  },
+  "render": {
+    "native_powerpoint_com": true,
+    "pdf_pages": 10,
+    "pdf_page_size": [
+      960.0,
+      540.0
+    ],
+    "pdf_text_characters": [
+      175,
+      460,
+      432,
+      353,
+      704,
+      260,
+      470,
+      110,
+      305,
+      309
+    ],
+    "pdf_fonts": [
+      [
+        "MicrosoftJhengHeiRegular",
+        146
+      ],
+      [
+        "MicrosoftJhengHeiBold",
+        96
+      ],
+      [
+        "Calibri",
+        3
+      ]
+    ],
+    "preview_pngs": 10,
+    "contact_sheet": "preview_revision/contact_sheet.png",
+    "pdf_raster_visual_review_pages": [
+      9,
+      10
+    ],
+    "unchanged_pixel_equal_pages": [
+      1,
+      6,
+      8
+    ]
+  },
+  "protected_files": [
+    {
+      "path": "report_output/slides/LSTM_GRU_課堂報告.pdf",
+      "sha256_before": "0a11193b2e9b769e4b107ce6389402872adf704334e051ca50b92d3341952db8",
+      "sha256_after": "0a11193b2e9b769e4b107ce6389402872adf704334e051ca50b92d3341952db8",
+      "unchanged": true
+    },
+    {
+      "path": "report_output/slides/LSTM_GRU_課堂報告.pptx",
+      "sha256_before": "b4712126a2540fb9fcb613540566cd2e0fb911cb5fa20a71af541d42ab96562e",
+      "sha256_after": "b4712126a2540fb9fcb613540566cd2e0fb911cb5fa20a71af541d42ab96562e",
+      "unchanged": true
+    }
+  ],
+  "source_integrity": {
+    "baseline_count": 457,
+    "changed_or_missing_count": 0,
+    "changed_or_missing": []
+  },
+  "artifacts": {
+    "pptx_sha256": "32f262bb4e31176ce45f19fbdddea31a8601630c64c1802c54eba9d31a8c1b2b",
+    "pdf_sha256": "6c78e8274afbd68314e5d9792324aa338e4e5d3e1b0e8dfd89f83e30b4626002",
+    "pptx_bytes": 286131,
+    "pdf_bytes": 540537
+  }
+}

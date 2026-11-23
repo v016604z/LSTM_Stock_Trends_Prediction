@@ -1,0 +1,760 @@
+{
+  "generated_utc": "2026-11-22T09:24:17.060666+00:00",
+  "integrity_before": "report_output/slides/research_integrity_before.json",
+  "purpose": "???????????????????????",
+  "runs": {
+    "LSTM": {
+      "run_manifest": "results/20261120T134010119780Z_82eaad21/run.json",
+      "status": "completed",
+      "expected_runs": 9,
+      "logs": [
+        {
+          "group": null,
+          "seed": 42,
+          "status": "completed",
+          "model_type": null,
+          "columns": [
+            "Close"
+          ],
+          "parameter_count": 16961,
+          "epochs_trained": 74,
+          "best_epoch": 64,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 59.59644899999694,
+          "source": "results/20261120T134010119780Z_82eaad21/A/seed_42/training.json"
+        },
+        {
+          "group": null,
+          "seed": 43,
+          "status": "completed",
+          "model_type": null,
+          "columns": [
+            "Close"
+          ],
+          "parameter_count": 16961,
+          "epochs_trained": 11,
+          "best_epoch": 1,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 10.728575000001001,
+          "source": "results/20261120T134010119780Z_82eaad21/A/seed_43/training.json"
+        },
+        {
+          "group": null,
+          "seed": 44,
+          "status": "completed",
+          "model_type": null,
+          "columns": [
+            "Close"
+          ],
+          "parameter_count": 16961,
+          "epochs_trained": 73,
+          "best_epoch": 63,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 50.45060430000012,
+          "source": "results/20261120T134010119780Z_82eaad21/A/seed_44/training.json"
+        },
+        {
+          "group": null,
+          "seed": 42,
+          "status": "completed",
+          "model_type": null,
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume"
+          ],
+          "parameter_count": 17985,
+          "epochs_trained": 32,
+          "best_epoch": 22,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 22.480106399998476,
+          "source": "results/20261120T134010119780Z_82eaad21/B/seed_42/training.json"
+        },
+        {
+          "group": null,
+          "seed": 43,
+          "status": "completed",
+          "model_type": null,
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume"
+          ],
+          "parameter_count": 17985,
+          "epochs_trained": 30,
+          "best_epoch": 20,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 22.090634700005467,
+          "source": "results/20261120T134010119780Z_82eaad21/B/seed_43/training.json"
+        },
+        {
+          "group": null,
+          "seed": 44,
+          "status": "completed",
+          "model_type": null,
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume"
+          ],
+          "parameter_count": 17985,
+          "epochs_trained": 30,
+          "best_epoch": 20,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 21.730828500003554,
+          "source": "results/20261120T134010119780Z_82eaad21/B/seed_44/training.json"
+        },
+        {
+          "group": null,
+          "seed": 42,
+          "status": "completed",
+          "model_type": null,
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume",
+            "MA5",
+            "MA20",
+            "RSI14",
+            "MACD",
+            "MACD_signal"
+          ],
+          "parameter_count": 19265,
+          "epochs_trained": 28,
+          "best_epoch": 18,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 20.37578749999375,
+          "source": "results/20261120T134010119780Z_82eaad21/C/seed_42/training.json"
+        },
+        {
+          "group": null,
+          "seed": 43,
+          "status": "completed",
+          "model_type": null,
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume",
+            "MA5",
+            "MA20",
+            "RSI14",
+            "MACD",
+            "MACD_signal"
+          ],
+          "parameter_count": 19265,
+          "epochs_trained": 14,
+          "best_epoch": 4,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 11.09851019999769,
+          "source": "results/20261120T134010119780Z_82eaad21/C/seed_43/training.json"
+        },
+        {
+          "group": null,
+          "seed": 44,
+          "status": "completed",
+          "model_type": null,
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume",
+            "MA5",
+            "MA20",
+            "RSI14",
+            "MACD",
+            "MACD_signal"
+          ],
+          "parameter_count": 19265,
+          "epochs_trained": 31,
+          "best_epoch": 21,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 21.82789159999811,
+          "source": "results/20261120T134010119780Z_82eaad21/C/seed_44/training.json"
+        }
+      ]
+    },
+    "GRU": {
+      "run_manifest": "results/gru_20261120T143901617329Z_1fa00b5e/run.json",
+      "status": "completed",
+      "expected_runs": 9,
+      "logs": [
+        {
+          "group": null,
+          "seed": 42,
+          "status": "completed",
+          "model_type": "GRU",
+          "columns": [
+            "Close"
+          ],
+          "parameter_count": 12929,
+          "epochs_trained": 29,
+          "best_epoch": 19,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 28.731173499996657,
+          "source": "results/gru_20261120T143901617329Z_1fa00b5e/A/seed_42/training.json"
+        },
+        {
+          "group": null,
+          "seed": 43,
+          "status": "completed",
+          "model_type": "GRU",
+          "columns": [
+            "Close"
+          ],
+          "parameter_count": 12929,
+          "epochs_trained": 38,
+          "best_epoch": 28,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 30.409851200005505,
+          "source": "results/gru_20261120T143901617329Z_1fa00b5e/A/seed_43/training.json"
+        },
+        {
+          "group": null,
+          "seed": 44,
+          "status": "completed",
+          "model_type": "GRU",
+          "columns": [
+            "Close"
+          ],
+          "parameter_count": 12929,
+          "epochs_trained": 37,
+          "best_epoch": 27,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 29.300688100003754,
+          "source": "results/gru_20261120T143901617329Z_1fa00b5e/A/seed_44/training.json"
+        },
+        {
+          "group": null,
+          "seed": 42,
+          "status": "completed",
+          "model_type": "GRU",
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume"
+          ],
+          "parameter_count": 13697,
+          "epochs_trained": 16,
+          "best_epoch": 6,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 14.103743300001952,
+          "source": "results/gru_20261120T143901617329Z_1fa00b5e/B/seed_42/training.json"
+        },
+        {
+          "group": null,
+          "seed": 43,
+          "status": "completed",
+          "model_type": "GRU",
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume"
+          ],
+          "parameter_count": 13697,
+          "epochs_trained": 15,
+          "best_epoch": 5,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 13.651962999996613,
+          "source": "results/gru_20261120T143901617329Z_1fa00b5e/B/seed_43/training.json"
+        },
+        {
+          "group": null,
+          "seed": 44,
+          "status": "completed",
+          "model_type": "GRU",
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume"
+          ],
+          "parameter_count": 13697,
+          "epochs_trained": 18,
+          "best_epoch": 8,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 15.925533200002974,
+          "source": "results/gru_20261120T143901617329Z_1fa00b5e/B/seed_44/training.json"
+        },
+        {
+          "group": null,
+          "seed": 42,
+          "status": "completed",
+          "model_type": "GRU",
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume",
+            "MA5",
+            "MA20",
+            "RSI14",
+            "MACD",
+            "MACD_signal"
+          ],
+          "parameter_count": 14657,
+          "epochs_trained": 13,
+          "best_epoch": 3,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 12.982483500003582,
+          "source": "results/gru_20261120T143901617329Z_1fa00b5e/C/seed_42/training.json"
+        },
+        {
+          "group": null,
+          "seed": 43,
+          "status": "completed",
+          "model_type": "GRU",
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume",
+            "MA5",
+            "MA20",
+            "RSI14",
+            "MACD",
+            "MACD_signal"
+          ],
+          "parameter_count": 14657,
+          "epochs_trained": 15,
+          "best_epoch": 5,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 13.770655200001784,
+          "source": "results/gru_20261120T143901617329Z_1fa00b5e/C/seed_43/training.json"
+        },
+        {
+          "group": null,
+          "seed": 44,
+          "status": "completed",
+          "model_type": "GRU",
+          "columns": [
+            "Open",
+            "High",
+            "Low",
+            "Close",
+            "Volume",
+            "MA5",
+            "MA20",
+            "RSI14",
+            "MACD",
+            "MACD_signal"
+          ],
+          "parameter_count": 14657,
+          "epochs_trained": 20,
+          "best_epoch": 10,
+          "stopped_early": true,
+          "train_samples": 1865,
+          "validation_samples": 239,
+          "elapsed_seconds": 17.32454310000321,
+          "source": "results/gru_20261120T143901617329Z_1fa00b5e/C/seed_44/training.json"
+        }
+      ]
+    }
+  },
+  "dataset": {
+    "snapshot": "res/research/2330.TW_2015-2025_twse.csv",
+    "snapshot_metadata": "results/20261120T134010119780Z_82eaad21/snapshot.metadata.json",
+    "config": "results/20261120T134010119780Z_82eaad21/config.json",
+    "price_basis": "unadjusted",
+    "source": "TWSE_STOCK_DAY / 2330.TW",
+    "price_stats": {
+      "snapshot_rows": 2682,
+      "first_date": "2015-01-05",
+      "last_date": "2025-12-31",
+      "train_raw_close_min": 115.0,
+      "train_raw_close_max": 683.0,
+      "test_above_train_max_count": 457,
+      "test_above_train_max_pct": 94.22680412371135,
+      "first_test_above": {
+        "Date": "2024-02-15",
+        "Open": "709.00",
+        "High": "709.00",
+        "Low": "693.00",
+        "Close": 697.0,
+        "Volume": "132263803"
+      },
+      "last_test_above": {
+        "Date": "2025-12-31",
+        "Open": "1520.00",
+        "High": "1550.00",
+        "Low": "1515.00",
+        "Close": 1550.0,
+        "Volume": "31389568"
+      },
+      "test_close_min": 576.0,
+      "test_close_max": 1550.0,
+      "prediction_actual_close_count_above_train_max_seed42": 457,
+      "prediction_actual_close_pct_above_train_max_seed42": 94.22680412371135,
+      "train_snapshot_rows_by_date": 1958,
+      "validation_snapshot_rows_by_date": 239,
+      "test_snapshot_rows_by_date": 485,
+      "dataset_samples": {
+        "train": 1865,
+        "validation": 239,
+        "test": 485
+      },
+      "dataset_sample_counts_source": "results/20261120T134010119780Z_82eaad21/run.json and results/gru_20261120T143901617329Z_1fa00b5e/evaluation/evaluation.json"
+    },
+    "sample_rows": {
+      "head": [
+        {
+          "Date": "2015-01-05",
+          "Open": "140.50",
+          "High": "140.50",
+          "Low": "137.50",
+          "Close": 139.5,
+          "Volume": "32214177"
+        },
+        {
+          "Date": "2015-01-06",
+          "Open": "137.50",
+          "High": "137.50",
+          "Low": "133.00",
+          "Close": 133.5,
+          "Volume": "67649997"
+        }
+      ],
+      "tail": [
+        {
+          "Date": "2025-12-30",
+          "Open": "1515.00",
+          "High": "1530.00",
+          "Low": "1510.00",
+          "Close": 1520.0,
+          "Volume": "21819219"
+        },
+        {
+          "Date": "2025-12-31",
+          "Open": "1520.00",
+          "High": "1550.00",
+          "Low": "1515.00",
+          "Close": 1550.0,
+          "Volume": "31389568"
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "official_summary_source": "results/gru_20261120T143901617329Z_1fa00b5e/evaluation/comparison_summary.csv",
+    "official_per_seed_source": "results/gru_20261120T143901617329Z_1fa00b5e/evaluation/comparison_per_seed.csv",
+    "lstm_metrics_summary_source": "results/20261120T134010119780Z_82eaad21/evaluation/metrics_summary.csv",
+    "official_rows": [
+      {
+        "group": "A",
+        "model": "LSTM",
+        "n_seeds": 3,
+        "parameter_count": 16961,
+        "train_seconds_mean": 40.25854276666602,
+        "mae_mean": 161.35340446131335,
+        "mae_std": 54.888577155808434,
+        "rmse_mean": 185.0638179491629,
+        "rmse_std": 60.33681352708089,
+        "directional_accuracy_mean": 0.4013745704467354,
+        "directional_accuracy_std": 0.0011904129261641725
+      },
+      {
+        "group": "A",
+        "model": "GRU",
+        "n_seeds": 3,
+        "parameter_count": 12929,
+        "train_seconds_mean": 29.480570933335304,
+        "mae_mean": 66.50809665955218,
+        "mae_std": 4.8649563821100275,
+        "rmse_mean": 80.79067368630741,
+        "rmse_std": 5.656971586355441,
+        "directional_accuracy_mean": 0.4020618556701031,
+        "directional_accuracy_std": 0.0
+      },
+      {
+        "group": "B",
+        "model": "LSTM",
+        "n_seeds": 3,
+        "parameter_count": 17985,
+        "train_seconds_mean": 22.1005232000025,
+        "mae_mean": 201.03781872516646,
+        "mae_std": 3.6274610697725866,
+        "rmse_mean": 241.93353082898986,
+        "rmse_std": 4.219669455902783,
+        "directional_accuracy_mean": 0.4061855670103093,
+        "directional_accuracy_std": 0.0
+      },
+      {
+        "group": "B",
+        "model": "GRU",
+        "n_seeds": 3,
+        "parameter_count": 13697,
+        "train_seconds_mean": 14.56041316666718,
+        "mae_mean": 87.05760787491946,
+        "mae_std": 26.663492241050548,
+        "rmse_mean": 105.19897704315164,
+        "rmse_std": 28.35880105148747,
+        "directional_accuracy_mean": 0.4027491408934708,
+        "directional_accuracy_std": 0.00476165170465669
+      },
+      {
+        "group": "C",
+        "model": "LSTM",
+        "n_seeds": 3,
+        "parameter_count": 19265,
+        "train_seconds_mean": 17.76739643332985,
+        "mae_mean": 223.41209079178748,
+        "mae_std": 106.61173355474693,
+        "rmse_mean": 265.08928190888923,
+        "rmse_std": 112.64659956338775,
+        "directional_accuracy_mean": 0.41512027491408937,
+        "directional_accuracy_std": 0.013728511584493576
+      },
+      {
+        "group": "C",
+        "model": "GRU",
+        "n_seeds": 3,
+        "parameter_count": 14657,
+        "train_seconds_mean": 14.692560600002858,
+        "mae_mean": 181.28573870576943,
+        "mae_std": 35.59323622366223,
+        "rmse_mean": 211.96670045997053,
+        "rmse_std": 37.9031595328253,
+        "directional_accuracy_mean": 0.4,
+        "directional_accuracy_std": 0.0
+      }
+    ],
+    "independent_recomputed_sample_statistics": [
+      {
+        "group": "A",
+        "model": "LSTM",
+        "n": 3,
+        "mae_mean": 161.35340446131335,
+        "mae_sample_sd": 54.888577155808434,
+        "rmse_mean": 185.0638179491629,
+        "rmse_sample_sd": 60.33681352708089,
+        "da_mean": 0.4013745704467354,
+        "da_sample_sd": 0.0011904129261641725
+      },
+      {
+        "group": "A",
+        "model": "GRU",
+        "n": 3,
+        "mae_mean": 66.50809665955218,
+        "mae_sample_sd": 4.8649563821100275,
+        "rmse_mean": 80.79067368630741,
+        "rmse_sample_sd": 5.656971586355441,
+        "da_mean": 0.4020618556701031,
+        "da_sample_sd": 0.0
+      },
+      {
+        "group": "B",
+        "model": "LSTM",
+        "n": 3,
+        "mae_mean": 201.03781872516646,
+        "mae_sample_sd": 3.6274610697725866,
+        "rmse_mean": 241.93353082898986,
+        "rmse_sample_sd": 4.219669455902783,
+        "da_mean": 0.4061855670103093,
+        "da_sample_sd": 0.0
+      },
+      {
+        "group": "B",
+        "model": "GRU",
+        "n": 3,
+        "mae_mean": 87.05760787491946,
+        "mae_sample_sd": 26.663492241050548,
+        "rmse_mean": 105.19897704315164,
+        "rmse_sample_sd": 28.35880105148747,
+        "da_mean": 0.4027491408934708,
+        "da_sample_sd": 0.00476165170465669
+      },
+      {
+        "group": "C",
+        "model": "LSTM",
+        "n": 3,
+        "mae_mean": 223.41209079178748,
+        "mae_sample_sd": 106.61173355474693,
+        "rmse_mean": 265.08928190888923,
+        "rmse_sample_sd": 112.64659956338775,
+        "da_mean": 0.41512027491408937,
+        "da_sample_sd": 0.013728511584493576
+      },
+      {
+        "group": "C",
+        "model": "GRU",
+        "n": 3,
+        "mae_mean": 181.28573870576943,
+        "mae_sample_sd": 35.59323622366223,
+        "rmse_mean": 211.96670045997053,
+        "rmse_sample_sd": 37.9031595328253,
+        "da_mean": 0.4,
+        "da_sample_sd": 0.0
+      }
+    ],
+    "naive_row": {
+      "group": "Naive",
+      "n_seeds": 0.0,
+      "mae_mean": 15.371134020618554,
+      "mae_std": "N/A",
+      "rmse_mean": 20.96934434029485,
+      "rmse_std": "N/A",
+      "directional_accuracy_mean": "N/A",
+      "directional_accuracy_std": "N/A",
+      "mae_improvement_pct": "N/A",
+      "rmse_improvement_pct": "N/A"
+    },
+    "naive_source": "results/20261120T134010119780Z_82eaad21/evaluation/metrics_summary.csv",
+    "plot_seed": 42,
+    "plot_source": "report_output/figures/price_series.png",
+    "plot_interpretation": "Price-series figure uses Group A seed 42 prediction series only; it is not a multi-seed ensemble.",
+    "mae_plot_source": "report_output/figures/mae_models.png",
+    "mae_plot_interpretation": "MAE models plot summarizes per-seed mean ? sample standard deviation.",
+    "prediction_sample_rows": {
+      "LSTM": {
+        "source": "results/20261120T134010119780Z_82eaad21/evaluation/predictions_A_seed_42.csv",
+        "first": {
+          "target_date": "2024-01-02",
+          "input_end_date": "2023-12-29",
+          "group": "A",
+          "seed": "42",
+          "actual_close": "593.0",
+          "previous_close": "593.0",
+          "predicted_close": "585.8596801757812",
+          "absolute_error": "7.14031982421875",
+          "squared_error": "50.98416719213128",
+          "actual_direction": "0",
+          "predicted_direction": "-1",
+          "direction_correct": "0"
+        },
+        "last": {
+          "target_date": "2025-12-31",
+          "input_end_date": "2025-12-30",
+          "group": "A",
+          "seed": "42",
+          "actual_close": "1550.0",
+          "previous_close": "1520.0",
+          "predicted_close": "1181.1063232421875",
+          "absolute_error": "368.8936767578125",
+          "squared_error": "136082.54475189745",
+          "actual_direction": "1",
+          "predicted_direction": "-1",
+          "direction_correct": "0"
+        }
+      },
+      "GRU": {
+        "source": "results/gru_20261120T143901617329Z_1fa00b5e/evaluation/predictions_A_seed_42.csv",
+        "first": {
+          "target_date": "2024-01-02",
+          "input_end_date": "2023-12-29",
+          "group": "A",
+          "seed": "42",
+          "actual_close": "593.0",
+          "previous_close": "593.0",
+          "predicted_close": "590.4142456054688",
+          "absolute_error": "2.58575439453125",
+          "squared_error": "6.686125788837671",
+          "actual_direction": "0",
+          "predicted_direction": "-1",
+          "direction_correct": "0"
+        },
+        "last": {
+          "target_date": "2025-12-31",
+          "input_end_date": "2025-12-30",
+          "group": "A",
+          "seed": "42",
+          "actual_close": "1550.0",
+          "previous_close": "1520.0",
+          "predicted_close": "1359.118408203125",
+          "absolute_error": "190.881591796875",
+          "squared_error": "36435.78208690882",
+          "actual_direction": "1",
+          "predicted_direction": "-1",
+          "direction_correct": "0"
+        }
+      }
+    }
+  },
+  "code_evidence": [
+    {
+      "file": "src/lstm_comparison/model.py",
+      "lines": "53-60",
+      "purpose": "??????????????????",
+      "exact_excerpt": "53:         model = tf.keras.Sequential([\n54:             tf.keras.Input(shape=tuple(input_shape)),\n55:             getattr(tf.keras.layers, layer_name)(units),\n56:             tf.keras.layers.Dense(dense_units),\n57:         ], name=name)\n58:         model.compile(\n59:             optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),\n60:             loss=loss,"
+    },
+    {
+      "file": "src/lstm_comparison/dataset.py",
+      "lines": "97-114",
+      "purpose": "???????????? Close?y scaler ?? train fit?????????",
+      "exact_excerpt": "97:     dates = frame.index[targets]\n98:     masks = {}\n99:     for name in (\"train\", \"validation\", \"test\"):\n100:         bounds = config[\"split\"][name]\n101:         masks[name] = (dates >= pd.Timestamp(bounds[\"start\"])) & (dates <= pd.Timestamp(bounds[\"end\"]))\n102:         if not masks[name].any():\n103:             raise DatasetError(f\"{name} 分區沒有共同有效樣本，請檢查期間與歷史資料長度\")\n104: \n105:     positions = targets[:, None] - lookback + np.arange(lookback)\n106:     fit_positions = np.unique(positions[masks[\"train\"]])\n107:     close = frame[\"Close\"].to_numpy(dtype=float)\n108:     raw_y = close[targets].reshape(-1, 1)\n109:     previous_close = close[targets - 1].reshape(-1, 1)\n110:     if persisted:\n111:         _validate_scaler(y_scaler, raw_y[masks[\"train\"]], \"y\")\n112:     else:\n113:         y_scaler = MinMaxScaler(feature_range=(0, 1), clip=False).fit(raw_y[masks[\"train\"]])\n114:     scaled_y = y_scaler.transform(raw_y.copy())"
+    },
+    {
+      "file": "src/lstm_comparison/training.py",
+      "lines": "93-105, 112-127",
+      "purpose": "fit ??? train ??? validation????? epoch ????????????",
+      "exact_excerpt": "93:         train, validation = group.splits[\"train\"], group.splits[\"validation\"]\n94:         for split in (train, validation):\n95:             if not len(split.X) or not np.isfinite(split.X).all() or not np.isfinite(split.y).all():\n96:                 raise TrainingError(\"訓練與驗證資料必須非空且為有限數值\")\n97:         model = model_builder(train.X.shape[1:], config, seed)\n98:         summary[\"parameter_count\"] = int(model.count_params())\n99:         settings = config[\"training\"]\n100:         history = model.fit(\n101:             _batches(train, settings[\"batch_size\"]),\n102:             validation_data=_batches(validation, settings[\"batch_size\"]),\n103:             epochs=settings[\"max_epochs\"], shuffle=settings[\"shuffle\"],\n104:             callbacks=_callbacks(config), verbose=0,\n105:         ).history\n...\n112:         # EarlyStopping.on_train_end restores the best validation weights,\n113:         # including when training reaches max_epochs without stopping early.\n114:         model.save_weights(output_dir / \"best.weights.h5\")\n115:         with (output_dir / \"history.csv\").open(\"w\", encoding=\"utf-8\", newline=\"\") as handle:\n116:             writer = csv.writer(handle, lineterminator=\"\\n\")\n117:             writer.writerow([\"epoch\", \"loss\", \"val_loss\"])\n118:             writer.writerows((epoch + 1, float(loss), float(val_loss))\n119:                              for epoch, (loss, val_loss) in enumerate(zip(losses, val_losses)))\n120:         summary.update({\"status\": \"completed\", \"epochs_trained\": len(losses),\n121:                         \"stopped_early\": len(losses) < settings[\"max_epochs\"],\n122:                         \"best_epoch\": int(np.argmin(val_losses)) + 1,\n123:                         \"best_val_loss\": float(val_losses.min()),\n124:                         \"train_samples\": len(train.X), \"validation_samples\": len(validation.X),\n125:                         \"weights\": \"best.weights.h5\", \"history\": \"history.csv\",\n126:                         \"completed_at_utc\": _now(), \"elapsed_seconds\": time.perf_counter() - started})\n127:         _write_json(output_dir / \"training.json\", summary)"
+    }
+  ],
+  "preflight": {
+    "reported_by_user_session": true,
+    "python_version": "3.11.18",
+    "prior_success": [
+      "CLI --help",
+      "config validation",
+      "offline load-snapshot"
+    ],
+    "evidence_sources": [
+      "results/20261120T134010119780Z_82eaad21/environment.json",
+      "results/20261120T134010119780Z_82eaad21/snapshot.metadata.json",
+      "results/20261120T134010119780Z_82eaad21/config.json"
+    ],
+    "this_turn_reexecuted_research_commands": false,
+    "weights_note": "Do not claim retraining; manifests and training.json record completed runs. This task does not rerun model training or evaluation."
+  },
+  "interpretive_caveat": "94.23% ???? actual Close ????? raw Close ??????????????????????????? Close ????????train 115?683?test ??? 1,550?"
+}

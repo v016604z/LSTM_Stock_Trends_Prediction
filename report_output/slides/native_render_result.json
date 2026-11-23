@@ -1,0 +1,9 @@
+﻿{
+    "slides":  10,
+    "width":  960,
+    "height":  540,
+    "initial_presentations":  0,
+    "pptx":  "C:\\Project\\115_1\\Neural_LSTM\\LSTM_Stock_Trends_Prediction\\report_output\\slides\\LSTM_GRU_課堂報告_修訂版.pptx",
+    "pdf":  "C:\\Project\\115_1\\Neural_LSTM\\LSTM_Stock_Trends_Prediction\\report_output\\slides\\LSTM_GRU_課堂報告_修訂版.pdf",
+    "preview":  "C:\\Project\\115_1\\Neural_LSTM\\LSTM_Stock_Trends_Prediction\\report_output\\slides\\preview_revision"
+}
